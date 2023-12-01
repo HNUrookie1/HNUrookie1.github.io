@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="https://hnurookie1.github.io/">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-flat-top.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hnurookie1.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="实验任务A     假如你是facebook（meta）公司的一个网络架构师，负责在波士顿郊区建一个机房，服务整个美国东北部的用户，支撑用户发动态、发图、发视频、发评论等功能。现在请你估计机房的大致规模，设计网络结构，并优化L2&#x2F;L3的传输协议。  1.	估算机房大致规模 **a)	用户数量估计:**根据美国东北部地区的人口统计数据和互联网普及率，假设该地区有400万活跃用户。 **b)	每月消">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Computer network experiment IV">
+<meta property="og:url" content="https://hnurookie1.github.io/2023/06/25/Computer-network-experiment-IV/index.html">
+<meta property="og:site_name" content="枫叶苑">
+<meta property="og:description" content="实验任务A     假如你是facebook（meta）公司的一个网络架构师，负责在波士顿郊区建一个机房，服务整个美国东北部的用户，支撑用户发动态、发图、发视频、发评论等功能。现在请你估计机房的大致规模，设计网络结构，并优化L2&#x2F;L3的传输协议。  1.	估算机房大致规模 **a)	用户数量估计:**根据美国东北部地区的人口统计数据和互联网普及率，假设该地区有400万活跃用户。 **b)	每月消">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-06-25T12:15:34.000Z">
+<meta property="article:modified_time" content="2023-06-26T13:26:55.887Z">
+<meta property="article:author" content="HnuRookie">
+<meta property="article:tag" content="Study">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://hnurookie1.github.io/2023/06/25/Computer-network-experiment-IV/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Computer network experiment IV | 枫叶苑</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/rss2.xml" title="枫叶苑" type="application/rss+xml">
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <a target="_blank" rel="noopener" href="https://github.com/HNUrookie1/" class="github-corner" aria-label="View source on GitHub">
+    <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+    <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+    <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+    </svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">枫叶苑</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/home/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hnurookie1.github.io/2023/06/25/Computer-network-experiment-IV/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/changfa.jpeg">
+      <meta itemprop="name" content="HnuRookie">
+      <meta itemprop="description" content="一位不愿透漏姓名的菜鸡">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="枫叶苑">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Computer network experiment IV
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-06-25 20:15:34" itemprop="dateCreated datePublished" datetime="2023-06-25T20:15:34+08:00">2023-06-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-06-26 21:26:55" itemprop="dateModified" datetime="2023-06-26T21:26:55+08:00">2023-06-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer-Network/" itemprop="url" rel="index"><span itemprop="name">Computer Network</span></a>
+                </span>
+            </span>
+
+          
+          <span title="post.wordcount">
+           共3,488 字
+          </span>
+          <span title="post.min2read">
+          约14 分钟
+          </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="实验任务a"><a class="markdownIt-Anchor" href="#实验任务a"></a> 实验任务A</h3>
+<p>    假如你是facebook（meta）公司的一个网络架构师，负责在波士顿郊区建一个机房，服务整个美国东北部的用户，支撑用户发动态、发图、发视频、发评论等功能。现在请你估计机房的大致规模，设计网络结构，并优化L2/L3的传输协议。</p>
+<h4 id="1估算机房大致规模"><a class="markdownIt-Anchor" href="#1估算机房大致规模"></a> 1.	估算机房大致规模</h4>
+<p>**a)	用户数量估计:**根据美国东北部地区的人口统计数据和互联网普及率，假设该地区有400万活跃用户。<br>
+**b)	每月消耗数据量估计:**假设每个用户每天平均浏览20条说说（包含动态和发图）和20个视频，每条说说消耗1MB,每个视频消耗20MB。每月按30天计算。则每个用户每月产生的数据量为：(20条说说x1MB+20个视频x10MB)x30天=6600MB因此，整个美国东北部地区的用户每月产生的数据量为:400万用户x6600MB=25177PB。<br>
+**c)	网络流量估计:**根据用户行为和数据传输需求,假设每个用户每天平均访问Facebook平台30分钟，期间上传和下载数据的平均速率为100Mbps。因此，整个美国东北部地区的用户每天的网络流量为:400w用户x100Mbps=400Gbps。</p>
+<h4 id="2设计网络架构"><a class="markdownIt-Anchor" href="#2设计网络架构"></a> 2.	设计网络架构</h4>
+<p>**a)	核心网络：**建议采用分层设计，其中核心网络层负责连接数据中心和用户边缘。在机房内部，可以采用高速交换机构建一个可靠的核心网络，提供高带宽和低延迟的连接。<br>
+**b)	边缘网络：**边缘网络层负责连接用户设备和核心网络。可以使用多台路由器和交换机来构建冗余的边缘网络，确保网络可靠性和负载均衡。<br>
+**c)	用户接入：**用户接入层通过无线和有线连接提供对用户的接入。建议部署无线接入点（如Wi-Fi）以覆盖机房范围内的用户，并提供有线连接（如光纤）以满足对高速、稳定连接的需求。<br>
+    总的来说，采用分布式架构，将不同机房之间通过高速网络连接起来,实现用户数据的分布式存储和传输。可以使用路由器、交换机和光纤等设备来构建高速网络。</p>
+<h4 id="3优化l2l3"><a class="markdownIt-Anchor" href="#3优化l2l3"></a> 3.	优化L2/L3</h4>
+<p><strong>a)	L2协议的优化：</strong><br>
+链路聚合（Link Aggregation）：将多个物理链路绑定成一个逻辑链路，提高链路带宽和冗余性。这可以通过诸如IEEE 802.3ad（LACP）协议来实现。<br>
+VLAN划分：使用虚拟局域网（VLAN）来划分网络，实现逻辑隔离和安全性。通过将不同用户、设备或服务隔离到不同的VLAN中，可以减少广播风暴和冲突，提高网络性能和可管理性。<br>
+Spanning Tree Protocol (STP) 的优化：STP用于防止网络中的环路，但它可能导致链路冗余时带宽浪费。优化方法包括使用快速收敛的Rapid Spanning Tree Protocol (RSTP) 或者使用基于链路状态的协议，如Multiple Spanning Tree Protocol (MSTP)。<br>
+<strong>b)	L3协议的优化：</strong><br>
+动态路由协议的优化：选择适当的动态路由协议，如OSPF（Open Shortest Path First）或BGP（Border Gateway Protocol），并进行合理的配置和调优。这包括优化路由更新间隔、调整Hello和Keepalive定时器，以及使用路由汇总和策略路由等技术。<br>
+负载均衡和流量工程：使用负载均衡技术，如等价路径装载（Equal-Cost Multipath）和流量工程，来平衡流量分布和优化网络利用率。这可以通过配置路由器来实现，根据流量类型、目的地或其他条件进行智能流量调度。<br>
+QoS（Quality of Service）：通过实施QoS策略，对不同类型的流量进行优先级管理和带宽控制。这可以确保关键应用（如视频传输）具有足够的带宽和低延迟，同时限制非关键流量的影响。<br>
+Anycast：通过使用Anycast技术，将相同IP地址分配给位于不同位置的多个服务器，以实现负载均衡和减少延迟。用户的请求将被转发到最近的服务器，提供更快的响应速度。</p>
+<h3 id="实验任务b"><a class="markdownIt-Anchor" href="#实验任务b"></a> 实验任务B</h3>
+<p>    假如你是google公司的一个网络架构师，负责欧洲数据中心和美国数据中心之间的数据传输，主要服务搜索业务的需求。数据中心内的网络不用你负责，需要你估计的是欧美之间传输的带宽，并优化长距离大数据量传输的协议。</p>
+<h4 id="1带宽估计"><a class="markdownIt-Anchor" href="#1带宽估计"></a> 1.	带宽估计</h4>
+<p>    欧美之间的数据传输带宽主要依赖于跨大西洋的海底光缆网络。这些海底光缆通过大西洋连接欧洲和美国，承载着跨洋数据传输的主要负载。欧美之间的传输带宽通常是以千兆位（Gbps）或更高的速度进行衡量。其中，MEREA，其长约6600公里，传输速度高达160Tbps。<br>
+    Google曾经自己投资建设专属于自己的光缆网络系统，例如跨大西洋的&quot;Dunant&quot;光缆，以满足其数据传输需求。Dunant 光缆于2020年投入使用，连接了美国弗吉尼亚州和法国法兰西岛之间。该光缆采用了先进的光纤技术，预计提供高达250Tbps的传输能力。</p>
+<h4 id="2优化长距离大数据传输的协议"><a class="markdownIt-Anchor" href="#2优化长距离大数据传输的协议"></a> 2.优化长距离大数据传输的协议</h4>
+<p>    我选择对UDP协议进行优化。TCP协议是一种可靠的协议，但在高延迟和高带宽的网络中，其性能可能会受到限制。因此，我们可以考虑使用UDP协议，它可以提供更高的吞吐量和更低的延迟。但是，UDP协议不是可靠的协议，因此我们需要在应用层实现数据包的确认和重传机制，以确保数据的可靠传输。      	<br>
+<strong>1)	第一种优化方法：</strong><br>
+    首先将大数据分割成较小的数据包（分片），以适应UDP协议的最大传输单元（MTU）限制。在接收端对接收到的分片进行重组，恢复原始的大数据。然后，实现基于时间戳的流量控制机制，控制数据发送速率，避免过多数据同时发送导致拥塞。并且引入前向纠错机制（Forward Error Correction, FEC），在发送端添加冗余数据，以允许接收端在接收到部分丢失或损坏的数据包时进行纠错。<br>
+在发送前对数据进行压缩，减少传输数据量。选择适当的压缩算法，权衡压缩率和压缩/解压缩开销。因为UDP是不可靠的传输协议，所以需要引入校验和机制，以确保数据的完整性。接收端在接收到数据后验证校验和，如有错误，请求发送端进行重传。<br>
+    同时，使用多条路径进行数据传输，通过负载均衡技术将数据分发到多个路径上，提高传输效率和带宽利用率。通过使用数据预加载、预连接或预分配资源等技术，减少传输开始的等待时间，从而减少传输延迟。<br>
+<strong>2)	第二种优化方法</strong><br>
+**a)	拥塞控制：  **<br>
+    包括速率控制和窗口控制。其中速率控制是主要的，用于调整发送包的周期，基于效率、公平和稳定性的综合考虑获得一个发送周期的初始经验值。当周期内丢包率小于阀值时，下一个周期内发送的包将增长。我们可以使用DAIMD算法。<br>
+窗口控制是辅助性的，用于动态的限制 NAK 包的数量。速率控制用于快速的达到带宽的最大阀值、快速的丢包恢复及协议内的公平性。窗口控制帮助减少包的丢失和振荡，避免拥塞。这两种机制共同作用保障了传输的高性能和稳定性，提高了效率及公平性。<br>
+<strong>b)	带宽估计</strong><br>
+    使用对包(PP – Packet pair)的机制来估计 带宽值。即每 16 个包为一组，最后一个是对包，即 发送方不用等到下一个发送周期内再发送。接收方接 收到对包后对其到达时间进行记录，可结合上次记录 的值计算出链路的带宽(计算的方法称为中值过滤法)， 并在下次 ACK 中进行反馈。<br>
+<strong>c)	可靠传输</strong><br>
+    发送端和接收端都维护一个丢包链表，用于记录 丢包的序号。接收方周期性的发送 ACK 和 NAK 通告 发送方丢包信息。从而实现数据传输的可靠性。根据 拥塞发生严重时丢包是大量连续的特点，使用了较好 的数据压缩机制，一个丢失链表中的节点表示一个丢 包事件，其丢包报告中存放的 32-bit 信息如果首位是 0，则只代表其自身的包丢失，若是 1 则表明从当前 的包序号开始到下一个记录中的所有包都丢失了。例 如：0x00000002, 0x80000006, 0x00000008, 0x0000000B 则表明序号为 2,6,7,8,11 的包都丢失。[1]</p>
+<h3 id="实验任务c"><a class="markdownIt-Anchor" href="#实验任务c"></a> 实验任务C</h3>
+<p>    针对（1）和（2）的场景，写出你的分析和协议设计报告，通过代码实现协议，并在能找到的实验场景进行原型实验。例如（1）就可以试试看你在寝室wifi下怎么实现高效的1对多发送，（2）可以试试看在两个寝室之间实现高速传输。</p>
+<h4 id="1针对任务a"><a class="markdownIt-Anchor" href="#1针对任务a"></a> 1.	针对任务A：</h4>
+<p>以下是使用优化后的L2/L3协议在寝室wife下高效的实现1对多发送代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> sockfd;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">multicast_addr</span>;</span></span><br><span class="line">    <span class="type">char</span> *message = <span class="string">&quot;Hello, multicast!&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建套接字</span></span><br><span class="line">    <span class="keyword">if</span> ((sockfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;socket creation failed&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置多播组地址</span></span><br><span class="line">    <span class="built_in">memset</span>(&amp;multicast_addr, <span class="number">0</span>, <span class="keyword">sizeof</span>(multicast_addr));</span><br><span class="line">    multicast_addr.sin_family = AF_INET;</span><br><span class="line">    multicast_addr.sin_addr.s_addr = inet_addr(MULTICAST_GROUP);</span><br><span class="line">    multicast_addr.sin_port = htons(PORT);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置套接字选项，启用多播</span></span><br><span class="line">    <span class="type">int</span> enable = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &amp;enable, <span class="keyword">sizeof</span>(enable)) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;setsockopt failed&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绑定套接字到指定地址和端口</span></span><br><span class="line">    <span class="keyword">if</span> (bind(sockfd, (<span class="keyword">struct</span> sockaddr*)&amp;multicast_addr, <span class="keyword">sizeof</span>(multicast_addr)) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;bind failed&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 加入多播组</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ip_mreq</span> <span class="title">multicast_request</span>;</span></span><br><span class="line">    multicast_request.imr_multiaddr.s_addr = inet_addr(MULTICAST_GROUP);</span><br><span class="line">    multicast_request.imr_interface.s_addr = htonl(INADDR_ANY);</span><br><span class="line">    <span class="keyword">if</span> (setsockopt(sockfd, IPPROTO_IP, IP_ADD_MEMBERSHIP, (<span class="type">char</span> *)&amp;multicast_request, <span class="keyword">sizeof</span>(multicast_request)) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;setsockopt failed&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 发送数据</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sendto(sockfd, message, <span class="built_in">strlen</span>(message), <span class="number">0</span>, (<span class="keyword">struct</span> sockaddr*)&amp;multicast_addr, <span class="keyword">sizeof</span>(multicast_addr)) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            perror(<span class="string">&quot;sendto failed&quot;</span>);</span><br><span class="line">            <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">        &#125;</span><br><span class="line">        sleep(<span class="number">1</span>); <span class="comment">// 间隔1秒发送一次数据</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 关闭套接字</span></span><br><span class="line">    close(sockfd);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="2针对任务b"><a class="markdownIt-Anchor" href="#2针对任务b"></a> 2.	针对任务B:</h4>
+<p>下面是对UDP协议优化后的在两个寝室之间高速传输的主要代码，在WSL2下运行。<br>
+发送方代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">sender</span><span class="params">(<span class="type">int</span> sockfd, <span class="keyword">struct</span> sockaddr* dest_addr, <span class="type">socklen_t</span> dest_addr_len)</span> &#123;</span><br><span class="line">    <span class="type">uint32_t</span> seq_num = <span class="number">0</span>;</span><br><span class="line">    Packet packet;</span><br><span class="line">    <span class="type">int</span> base = <span class="number">0</span>; <span class="comment">// 窗口的起始位置</span></span><br><span class="line">    <span class="type">int</span> next_seq_num = <span class="number">0</span>; <span class="comment">// 下一个待发送的包的序号</span></span><br><span class="line">    <span class="type">int</span> window_count = <span class="number">0</span>; <span class="comment">// 窗口内包的数量</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// 发送窗口内的包</span></span><br><span class="line">        <span class="keyword">while</span> (window_count &lt; WINDOW_SIZE &amp;&amp; next_seq_num &lt; base + WINDOW_SIZE) &#123;</span><br><span class="line">            <span class="comment">// 构建并发送数据包</span></span><br><span class="line">            packet.seq_num = next_seq_num;</span><br><span class="line">            packet.size = <span class="keyword">sizeof</span>(packet.data);</span><br><span class="line">            <span class="comment">// 在这里填充packet.data的实际数据</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (rand() / (<span class="type">double</span>)RAND_MAX &gt;= LOSS_RATE) &#123;</span><br><span class="line">                <span class="comment">// 模拟丢包</span></span><br><span class="line">                sendto(sockfd, &amp;packet, <span class="keyword">sizeof</span>(packet), <span class="number">0</span>, dest_addr, dest_addr_len);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            next_seq_num++;</span><br><span class="line">            window_count++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 接收ACK/NAK</span></span><br><span class="line">        fd_set fds;</span><br><span class="line">        FD_ZERO(&amp;fds);</span><br><span class="line">        FD_SET(sockfd, &amp;fds);</span><br><span class="line"></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">timeout</span>;</span></span><br><span class="line">        timeout.tv_sec = <span class="number">1</span>; <span class="comment">// 设置超时时间</span></span><br><span class="line">        timeout.tv_usec = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (select(sockfd + <span class="number">1</span>, &amp;fds, <span class="literal">NULL</span>, <span class="literal">NULL</span>, &amp;timeout) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 有可读数据</span></span><br><span class="line">            Packet ack_packet;</span><br><span class="line">            recvfrom(sockfd, &amp;ack_packet, <span class="keyword">sizeof</span>(ack_packet), <span class="number">0</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (ack_packet.seq_num &gt;= base) &#123;</span><br><span class="line">                <span class="comment">// 更新窗口的起始位置和窗口内包的数量</span></span><br><span class="line">                window_count -= ack_packet.seq_num - base + <span class="number">1</span>;</span><br><span class="line">                base = ack_packet.seq_num + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 超时，重传窗口内的包</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = base; i &lt; base + window_count; i++) &#123;</span><br><span class="line">                packet.seq_num = i;</span><br><span class="line">                packet.size = <span class="keyword">sizeof</span>(packet.data);</span><br><span class="line">                <span class="comment">// 在这里填充packet.data的实际数据</span></span><br><span class="line"></span><br><span class="line">                sendto(sockfd, &amp;packet, <span class="keyword">sizeof</span>(packet), <span class="number">0</span>, dest_addr, dest_addr_len);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 传输完成</span></span><br><span class="line">        <span class="keyword">if</span> (base &gt;= next_seq_num)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>接收方代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">receiver</span><span class="params">(<span class="type">int</span> sockfd, <span class="keyword">struct</span> sockaddr* src_addr, <span class="type">socklen_t</span> src_addr_len)</span> &#123;</span><br><span class="line">    Packet packet;</span><br><span class="line">    <span class="type">uint32_t</span> expected_seq_num = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// 接收数据包</span></span><br><span class="line">        recvfrom(sockfd, &amp;packet, <span class="keyword">sizeof</span>(packet), <span class="number">0</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (packet.seq_num == expected_seq_num) &#123;</span><br><span class="line">            <span class="comment">// 发送ACK</span></span><br><span class="line">            sendto(sockfd, &amp;packet, <span class="keyword">sizeof</span>(packet), <span class="number">0</span>, src_addr, src_addr_len);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 处理数据包</span></span><br><span class="line">            <span class="comment">// 在这里处理接收到的数据包</span></span><br><span class="line"></span><br><span class="line">            expected_seq_num++;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 发送NAK</span></span><br><span class="line">            Packet nak_packet;</span><br><span class="line">            nak_packet.seq_num = expected_seq_num - <span class="number">1</span>;</span><br><span class="line">            nak_packet.size = <span class="number">0</span>; <span class="comment">// 表示NAK</span></span><br><span class="line"></span><br><span class="line">            sendto(sockfd, &amp;nak_packet, <span class="keyword">sizeof</span>(nak_packet), <span class="number">0</span>, src_addr, src_addr_len);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="实验总结"><a class="markdownIt-Anchor" href="#实验总结"></a> 实验总结</h3>
+<p>    本次实验感觉还是比较难的，有的协议看不太懂，不知道如何优化，在查阅了资料后，找到了类似的优化方法。做的不足的地方还有很多，我根据自己的能力尽可能完成实验，其中还有很多不足的地方需要改进。这是本学期最后一个实验，希望以后能对计算机网络有更深刻的理解和认识。</p>
+<h3 id="参考文献"><a class="markdownIt-Anchor" href="#参考文献"></a> 参考文献</h3>
+<p>[1]	张磊,葛敬国,李俊.长距离高带宽环境下UDT协议的分析与应用[J].计算机系统应用,2009,18(10):148-151.<br>
+[2]	Floyd S. High speed TCP for large congestion window. RFC 3646, IETF, Dec 2003<br>
+[3]	<a target="_blank" rel="noopener" href="https://blog.csdn.net/guanminwei/article/details/119105557">https://blog.csdn.net/guanminwei/article/details/119105557</a><br>
+[4]	李士宁,王猛,赵磊.长距离高带宽环境下的TCP拥塞控制[J].无线通信技术,2006(01):47-50<br>
+[5]	丁一,汪永琳.长距离高带宽环境下FAST TCP的结构与性能分析[J].科技信息(学术研究),2007(30):1-3</p>
+
+    </div>
+
+    
+    
+    
+     
+    <div>
+     <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+    </div>
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>枫叶
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hnurookie1.github.io/2023/06/25/Computer-network-experiment-IV/" title="Computer network experiment IV">https://hnurookie1.github.io/2023/06/25/Computer-network-experiment-IV/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://hnurookie1.github.io/rss2.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Study/" rel="tag"># Study</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/06/25/History/" rel="prev" title="History">
+      <i class="fa fa-chevron-left"></i> History
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/10/30/%E6%99%AE%E4%BA%AC%E5%A4%A7%E5%B8%9D/" rel="next" title="普京大帝伟大的一生">
+      普京大帝伟大的一生 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E4%BB%BB%E5%8A%A1a"><span class="nav-number">1.</span> <span class="nav-text"> 实验任务A</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E4%BC%B0%E7%AE%97%E6%9C%BA%E6%88%BF%E5%A4%A7%E8%87%B4%E8%A7%84%E6%A8%A1"><span class="nav-number">1.1.</span> <span class="nav-text"> 1.	估算机房大致规模</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E8%AE%BE%E8%AE%A1%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text"> 2.	设计网络架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E4%BC%98%E5%8C%96l2l3"><span class="nav-number">1.3.</span> <span class="nav-text"> 3.	优化L2&#x2F;L3</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E4%BB%BB%E5%8A%A1b"><span class="nav-number">2.</span> <span class="nav-text"> 实验任务B</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E5%B8%A6%E5%AE%BD%E4%BC%B0%E8%AE%A1"><span class="nav-number">2.1.</span> <span class="nav-text"> 1.	带宽估计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E4%BC%98%E5%8C%96%E9%95%BF%E8%B7%9D%E7%A6%BB%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E7%9A%84%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.2.</span> <span class="nav-text"> 2.优化长距离大数据传输的协议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E4%BB%BB%E5%8A%A1c"><span class="nav-number">3.</span> <span class="nav-text"> 实验任务C</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E9%92%88%E5%AF%B9%E4%BB%BB%E5%8A%A1a"><span class="nav-number">3.1.</span> <span class="nav-text"> 1.	针对任务A：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E9%92%88%E5%AF%B9%E4%BB%BB%E5%8A%A1b"><span class="nav-number">3.2.</span> <span class="nav-text"> 2.	针对任务B:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text"> 实验总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">5.</span> <span class="nav-text"> 参考文献</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="HnuRookie"
+      src="/images/changfa.jpeg">
+  <p class="site-author-name" itemprop="name">HnuRookie</p>
+  <div class="site-description" itemprop="description">一位不愿透漏姓名的菜鸡</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/" title="YouTube → https:&#x2F;&#x2F;www.youtube.com" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://web.skype.com/" title="Skype → https:&#x2F;&#x2F;web.skype.com&#x2F;" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i>Skype</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://csdiy.wiki/%E5%BF%85%E5%AD%A6%E5%B7%A5%E5%85%B7/tools/" title="https:&#x2F;&#x2F;csdiy.wiki&#x2F;%E5%BF%85%E5%AD%A6%E5%B7%A5%E5%85%B7&#x2F;tools&#x2F;" rel="noopener" target="_blank">CS自学工具</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://en.wikipedia.org/wiki/Main_Page" title="https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Main_Page" rel="noopener" target="_blank">维基百科</a>
+        </li>
+    </ul>
+  </div>
+  <div class="">
+    <a target="_blank" class="social-link" href="https://hnurookie1.github.io/rss2.xml" style="color: burlywood;">
+      <span class="icon">
+        <i class="fa fa-rss"></i>
+      </span>
+      <span class="label">RSS</span>
+    </a>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 06-24-2023 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HnuRookie</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共7.1k字</span>
+</div>
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
