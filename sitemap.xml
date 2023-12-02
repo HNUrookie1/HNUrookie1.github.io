@@ -130,7 +130,7 @@
 
   <url>
     <loc>https://hnurookie1.github.io/</loc>
-    <lastmod>2023-12-01</lastmod>
+    <lastmod>2023-12-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -138,14 +138,14 @@
   
   <url>
     <loc>https://hnurookie1.github.io/tags/Study/</loc>
-    <lastmod>2023-12-01</lastmod>
+    <lastmod>2023-12-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hnurookie1.github.io/tags/Techology/</loc>
-    <lastmod>2023-12-01</lastmod>
+    <lastmod>2023-12-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -153,22 +153,22 @@
 
   
   <url>
-    <loc>https://hnurookie1.github.io/categories/Computer-Network/</loc>
-    <lastmod>2023-12-01</lastmod>
+    <loc>https://hnurookie1.github.io/categories/History/</loc>
+    <lastmod>2023-12-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://hnurookie1.github.io/categories/History/</loc>
-    <lastmod>2023-12-01</lastmod>
+    <loc>https://hnurookie1.github.io/categories/Computer-Network/</loc>
+    <lastmod>2023-12-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hnurookie1.github.io/categories/Life-Record/</loc>
-    <lastmod>2023-12-01</lastmod>
+    <lastmod>2023-12-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
