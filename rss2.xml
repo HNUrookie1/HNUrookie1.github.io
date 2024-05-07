@@ -3,14 +3,36 @@
   xmlns:atom="http://www.w3.org/2005/Atom"
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>HnuRookie&#39;s Blog</title>
+    <title>Rookie&#39;s Blog</title>
     <link>https://HNUrookie1.github.io/</link>
     
     <atom:link href="https://hnurookie1.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
-    <description>甘雨神子厨哦</description>
-    <pubDate>Sun, 03 Mar 2024 16:15:19 GMT</pubDate>
+    <description>灵气勇气朝气三气并存气贯长虹，信心决心恒心三心同在心想事成。</description>
+    <pubDate>Tue, 07 May 2024 16:29:15 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>三种O(n^2)的排序算法</title>
+      <link>https://hnurookie1.github.io/2024/05/08/%E4%B8%89%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</link>
+      <guid>https://hnurookie1.github.io/2024/05/08/%E4%B8%89%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</guid>
+      <pubDate>Tue, 07 May 2024 16:20:06 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;strong&gt;排序算法的稳定性&lt;/strong&gt;：所有相等的数经过某种排序方法后，仍能保持它们在排序前的相对次序，我们称这种排序算法是稳定的。反之，就是非稳定算法。&lt;br&gt;&lt;strong&gt;内排序&lt;/strong&gt;：在排序过程中，所有需要排序的数都在内存，并在内存中调整它们</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p><strong>排序算法的稳定性</strong>：所有相等的数经过某种排序方法后，仍能保持它们在排序前的相对次序，我们称这种排序算法是稳定的。反之，就是非稳定算法。<br><strong>内排序</strong>：在排序过程中，所有需要排序的数都在内存，并在内存中调整它们的顺序，称为内排序。<br><strong>外排序</strong>：在排序过程中，只有部分数被调入内存，并借助内存调整数在外存中的相对顺序，称为外排序。  </p><h5 id="1、插入排序"><a href="#1、插入排序" class="headerlink" title="1、插入排序"></a>1、插入排序</h5><p>分三个步骤：</p><ul><li>在在A[1..i-1]中查找A[i]的插入位置，A[1..j].key &lt;&#x3D; A[i].key &lt; A[j+1..i-1].key;</li><li>将A[j+1..i-1]中的所有记录均后移一个位置;</li><li>将A[i]插入(复制)到A[j+1]的位置上。<br><img src="/images/insort.png"><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> E,<span class="keyword">typename</span> Comp&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">inssort</span><span class="params">(E A[],<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>;i &lt;= n;i ++)</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j = i;(j&gt;<span class="number">0</span>) &amp;&amp; (Comp::<span class="built_in">prior</span>(A[j],A[j<span class="number">-1</span>]);j --))<span class="comment">//如果A[j]&gt;A[j-1],交换</span></span><br><span class="line">      <span class="built_in">swap</span>(A[j],A[j<span class="number">-1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><h5 id="2、冒泡排序"><a href="#2、冒泡排序" class="headerlink" title="2、冒泡排序"></a>2、冒泡排序</h5><p><img src="/images/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F.png"></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> E,<span class="keyword">typename</span> Comp&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bubsort</span><span class="params">(E A[],<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">  <span class="type">int</span> flag;<span class="comment">//标记此次冒泡过程中是否交换了元素，没有的话说明元素已经有序，终止</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; n - <span class="number">1</span>;i ++)&#123;</span><br><span class="line">    flag = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span>(j = n - <span class="number">1</span>;j &gt; i;j --)<span class="comment">//从后向前冒泡，从前往后也一样</span></span><br><span class="line">      <span class="keyword">if</span>(Comp::<span class="built_in">prior</span>(A[j],A[j<span class="number">-1</span>]))<span class="comment">//如果A[j]&gt;A[j-1]</span></span><br><span class="line">      &#123;<span class="built_in">swap</span>(A,j,j<span class="number">-1</span>);flag = True;&#125;</span><br><span class="line">    <span class="keyword">if</span>(!flag) <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h5 id="3、选择排序"><a href="#3、选择排序" class="headerlink" title="3、选择排序"></a>3、选择排序</h5><p><img src="/images/%E7%9B%B4%E6%8E%A5%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F.png"><br>假设当前下标为最小值的下标，向后遍历，一直更新最小值的下标，找到尽头，交换最小值和当前值。更新当前下标，持续上述，直至当前下标为最后一个元素下标。<br>选择排序的思想其实和冒泡排序有点类似，都是在一次排序后把最小的元素放到最前面，或者将最大值放在最后面。但是过程不同，冒泡排序是通过相邻的比较和交换。而选择排序是通过对整体的选择，每一趟从前往后查找出无序区最小值，将最小值交换至无序区最前面的位置。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">selection_sort</span><span class="params">(T arr[],<span class="type">int</span> len)</span></span>&#123;</span><br><span class="line">  <span class="type">int</span> i,j,min;</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; len - <span class="number">1</span>;i ++)&#123;</span><br><span class="line">    min = i;</span><br><span class="line">    <span class="keyword">for</span>(j = i + <span class="number">1</span>;j &lt; len;j ++)</span><br><span class="line">      <span class="keyword">if</span>(arr[min] &gt; arr[j])</span><br><span class="line">        min = j;</span><br><span class="line">      <span class="built_in">swap</span>(arr[i],arr[min]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://hnurookie1.github.io/2024/05/08/%E4%B8%89%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>我是谁，我是一个什么样的人</title>
@@ -51,6 +73,8 @@
       
       <content:encoded><![CDATA[<p>前几天接了一个python大作业，要求是爬取一个文本数据，然后进行数据分析，代码比较简单而且有模板可以套用。想说的是什么：事先一定要和甲方谈好需求，包括他们在哪里要求跑程序。这次就是没说清环境，我在本地跑的好好的，到了甲方那里不会配置环境，结果又帮他配置环境，到头来搞得很麻烦。所以说，和甲方讲好需求很重要。</p>]]></content:encoded>
       
+      
+      <category domain="https://HNUrookie1.github.io/categories/Life-Record/">Life Record</category>
       
       
       
@@ -224,32 +248,6 @@
       
       
       <comments>https://hnurookie1.github.io/2023/06/25/Computer-network-experiment-IV/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>小学期日志</title>
-      <link>https://hnurookie1.github.io/2023/06/25/%E5%A4%A7%E4%BA%8C%E5%B0%8F%E5%AD%A6%E6%9C%9F%E8%AE%B0%E5%BD%95/</link>
-      <guid>https://hnurookie1.github.io/2023/06/25/%E5%A4%A7%E4%BA%8C%E5%B0%8F%E5%AD%A6%E6%9C%9F%E8%AE%B0%E5%BD%95/</guid>
-      <pubDate>Sun, 25 Jun 2023 11:58:50 GMT</pubDate>
-      
-        
-        
-      <description>&lt;h1 id=&quot;Logs&quot;&gt;&lt;a href=&quot;#Logs&quot; class=&quot;headerlink&quot; title=&quot;Logs&quot;&gt;&lt;/a&gt;Logs&lt;/h1&gt;&lt;h2 id=&quot;June-25-Sunday&quot;&gt;&lt;a href=&quot;#June-25-Sunday&quot; class=&quot;headerli</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<h1 id="Logs"><a href="#Logs" class="headerlink" title="Logs"></a>Logs</h1><h2 id="June-25-Sunday"><a href="#June-25-Sunday" class="headerlink" title="June 25 Sunday"></a>June 25 Sunday</h2><p>&ensp;&ensp;&ensp;&ensp;The rest of the case was tested today. There was a problem with testing the AndrioD-based data acquisition system, and my board could not test the temperature and light curves. Case summary and inspection will be completed tomorrow.</p><h2 id="June-26-Monday"><a href="#June-26-Monday" class="headerlink" title="June 26 Monday"></a>June 26 Monday</h2><p>&ensp;&ensp;&ensp;&ensp;Today, I learned the basic knowledge of bsp programming. Mrs. Ling explained the basic principles and analyzed the basic code. In addition, many people’s 485 bus can not be used, mine is also.</p><h2 id="June-27-Tuesday"><a href="#June-27-Tuesday" class="headerlink" title="June 27 Tuesday"></a>June 27 Tuesday</h2><p>&ensp;&ensp;&ensp;&ensp;Today,we looked through the videos in chaoixng about chapter 5 and chapter 10 .In fact,I fished all the day. In addition,I learned the brush lessons in chaoxing from the Github.Well,that’s all.</p><h2 id="June-28-Wesday"><a href="#June-28-Wesday" class="headerlink" title="June 28 Wesday"></a>June 28 Wesday</h2><p>&ensp;&ensp;&ensp;&ensp;Today,I finished seven projects about stc.I think it is difficult.The Music Project and the “H” project while pressing KEY1 are hard,I turn to others.In addition,the Football Class by selected will be over tomorrow,because there is a test.The form is ask by the teacher and answer by student in site lively.  </p><h2 id="June-30-Friday"><a href="#June-30-Friday" class="headerlink" title="June 30 Friday"></a>June 30 Friday</h2><p>&ensp;&ensp;&ensp;&ensp;Today,we finished the test.The test is easy,because it is similar to previous 10 projects.Certainly,I scored 10 points.Well,many things are left.</p>]]></content:encoded>
-      
-      
-      <category domain="https://HNUrookie1.github.io/categories/Life-Record/">Life Record</category>
-      
-      
-      <category domain="https://HNUrookie1.github.io/tags/Techology/">Techology</category>
-      
-      
-      <comments>https://hnurookie1.github.io/2023/06/25/%E5%A4%A7%E4%BA%8C%E5%B0%8F%E5%AD%A6%E6%9C%9F%E8%AE%B0%E5%BD%95/#disqus_thread</comments>
       
     </item>
     
