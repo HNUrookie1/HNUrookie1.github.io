@@ -11,6 +11,12 @@
         <content type="html"><![CDATA[<p><strong>排序算法的稳定性</strong>：所有相等的数经过某种排序方法后，仍能保持它们在排序前的相对次序，我们称这种排序算法是稳定的。反之，就是非稳定算法。<br><strong>内排序</strong>：在排序过程中，所有需要排序的数都在内存，并在内存中调整它们的顺序，称为内排序。<br><strong>外排序</strong>：在排序过程中，只有部分数被调入内存，并借助内存调整数在外存中的相对顺序，称为外排序。  </p><h5 id="1、插入排序"><a href="#1、插入排序" class="headerlink" title="1、插入排序"></a>1、插入排序</h5><p>分三个步骤：</p><ul><li>在在A[1..i-1]中查找A[i]的插入位置，A[1..j].key &lt;&#x3D; A[i].key &lt; A[j+1..i-1].key;</li><li>将A[j+1..i-1]中的所有记录均后移一个位置;</li><li>将A[i]插入(复制)到A[j+1]的位置上。<br><img src="/images/insort.png"><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> E,<span class="keyword">typename</span> Comp&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">inssort</span><span class="params">(E A[],<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>;i &lt;= n;i ++)</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j = i;(j&gt;<span class="number">0</span>) &amp;&amp; (Comp::<span class="built_in">prior</span>(A[j],A[j<span class="number">-1</span>]);j --))<span class="comment">//如果A[j]&gt;A[j-1],交换</span></span><br><span class="line">      <span class="built_in">swap</span>(A[j],A[j<span class="number">-1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><h5 id="2、冒泡排序"><a href="#2、冒泡排序" class="headerlink" title="2、冒泡排序"></a>2、冒泡排序</h5><p><img src="/images/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F.png"></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> E,<span class="keyword">typename</span> Comp&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bubsort</span><span class="params">(E A[],<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">  <span class="type">int</span> flag;<span class="comment">//标记此次冒泡过程中是否交换了元素，没有的话说明元素已经有序，终止</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; n - <span class="number">1</span>;i ++)&#123;</span><br><span class="line">    flag = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span>(j = n - <span class="number">1</span>;j &gt; i;j --)<span class="comment">//从后向前冒泡，从前往后也一样</span></span><br><span class="line">      <span class="keyword">if</span>(Comp::<span class="built_in">prior</span>(A[j],A[j<span class="number">-1</span>]))<span class="comment">//如果A[j]&gt;A[j-1]</span></span><br><span class="line">      &#123;<span class="built_in">swap</span>(A,j,j<span class="number">-1</span>);flag = True;&#125;</span><br><span class="line">    <span class="keyword">if</span>(!flag) <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h5 id="3、选择排序"><a href="#3、选择排序" class="headerlink" title="3、选择排序"></a>3、选择排序</h5><p><img src="/images/%E7%9B%B4%E6%8E%A5%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F.png"><br>假设当前下标为最小值的下标，向后遍历，一直更新最小值的下标，找到尽头，交换最小值和当前值。更新当前下标，持续上述，直至当前下标为最后一个元素下标。<br>选择排序的思想其实和冒泡排序有点类似，都是在一次排序后把最小的元素放到最前面，或者将最大值放在最后面。但是过程不同，冒泡排序是通过相邻的比较和交换。而选择排序是通过对整体的选择，每一趟从前往后查找出无序区最小值，将最小值交换至无序区最前面的位置。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">selection_sort</span><span class="params">(T arr[],<span class="type">int</span> len)</span></span>&#123;</span><br><span class="line">  <span class="type">int</span> i,j,min;</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; len - <span class="number">1</span>;i ++)&#123;</span><br><span class="line">    min = i;</span><br><span class="line">    <span class="keyword">for</span>(j = i + <span class="number">1</span>;j &lt; len;j ++)</span><br><span class="line">      <span class="keyword">if</span>(arr[min] &gt; arr[j])</span><br><span class="line">        min = j;</span><br><span class="line">      <span class="built_in">swap</span>(arr[i],arr[min]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       
       
+      <categories>
+          
+          <category> Algorithm </category>
+          
+      </categories>
+      
       
     </entry>
     
@@ -62,6 +68,12 @@
         <content type="html"><![CDATA[<h3 id="《离思五首·其四》元稹"><a href="#《离思五首·其四》元稹" class="headerlink" title="《离思五首·其四》元稹"></a>《离思五首·其四》<strong>元稹</strong></h3><p>曾经沧海难为水，除却巫山不是云。</p><p>取次花丛懒回顾，半缘修道半缘君。</p><h3 id="《飞鸟集》片段-泰戈尔"><a href="#《飞鸟集》片段-泰戈尔" class="headerlink" title="《飞鸟集》片段 泰戈尔"></a>《飞鸟集》片段 <strong>泰戈尔</strong></h3><p>浮世三千，吾爱有三，日月与卿，日为朝，月为暮，卿为朝朝暮暮。</p><h3 id="《鹊桥仙》-秦观"><a href="#《鹊桥仙》-秦观" class="headerlink" title="《鹊桥仙》 秦观"></a>《鹊桥仙》 <strong>秦观</strong></h3><p>纤云弄巧，飞星传恨，银汉迢迢暗度。金风玉露一相逢，便胜却人间无数。</p><p>柔情似水，佳期如梦，忍顾鹊桥归路。两情若是久长时，又岂在朝朝暮暮。</p><h3 id="江城子·乙卯正月二十日夜记梦-苏轼"><a href="#江城子·乙卯正月二十日夜记梦-苏轼" class="headerlink" title="江城子·乙卯正月二十日夜记梦 苏轼"></a>江城子·乙卯正月二十日夜记梦 <strong>苏轼</strong></h3><p>十年生死两茫茫，不思量，自难忘。千里孤坟，无处话凄凉。纵使相逢应不识，尘满面，鬓如霜。</p><p>夜来幽梦忽还乡，小轩窗，正梳妆。相顾无言，惟有泪千行。料得年年肠断处，明月夜，短松冈。</p><h3 id="蒲松龄自勉联"><a href="#蒲松龄自勉联" class="headerlink" title="蒲松龄自勉联"></a>蒲松龄自勉联</h3><p>有志者，事竟成，破釜沉舟，百二秦关终属楚；</p><p>苦心人，天不负，卧薪尝胆，三千越甲可吞吴。</p><h3 id="蝶恋花-柳永"><a href="#蝶恋花-柳永" class="headerlink" title="蝶恋花 柳永"></a>蝶恋花 <strong>柳永</strong></h3><p>伫倚危楼风细细，望极春愁，黯黯生天际。草色烟光残照里，无言谁会凭阑意。</p><p>拟把疏狂图一醉，对酒当歌，强乐还无味。衣带渐宽终不悔，为伊消得人憔悴。</p><h3 id="上邪"><a href="#上邪" class="headerlink" title="上邪"></a>上邪</h3><p>上邪！我欲与君相知，长命无绝衰。山无陵，江水为竭，冬雷震震，夏雨雪，天地合，乃敢与君绝。 </p><h3 id="马嵬·其二-唐-李商隐"><a href="#马嵬·其二-唐-李商隐" class="headerlink" title="马嵬·其二 唐 李商隐"></a>马嵬·其二 <strong>唐 李商隐</strong></h3><p>海外徒闻更九州，他生未卜此生休。</p><p>空闻虎旅传宵柝，无复鸡人报晓筹。</p><p>此日六军同驻马，当时七夕笑牵牛。</p><p>如何四纪为天子，不及卢家有莫愁。</p>]]></content>
       
       
+      <categories>
+          
+          <category> Life Record </category>
+          
+      </categories>
+      
       
     </entry>
     
@@ -74,6 +86,12 @@
       
         <content type="html"><![CDATA[<h3 id="一、议论文"><a href="#一、议论文" class="headerlink" title="一、议论文"></a>一、议论文</h3><p>1.问题解决：how</p><p>2.现象解释：what why</p><p>3.观点选择</p><h4 id="问题-现象解决类"><a href="#问题-现象解决类" class="headerlink" title="问题&#x2F;现象解决类"></a>问题&#x2F;现象解决类</h4><p>例子2018上半年——问题&#x2F;现象解决类</p><p>第一段</p><p>With the rapid development of <u>……</u><br>（education，society，technology，culture，economy，medical service)_____,it is of great necessity  for to<u>…….</u>.<br>The following solutions can account for this phenomenon&#x2F;issue.</p><p>第二段</p><p>论点1 First and foremost ,there is no doubt that _____.</p><p>论据1 Based on a most recent survey ,it is revealed that( a majority pf successful social admit that they prefer ____)</p><p>论点2 Furthermore， it is obvious that it is beneficial for( students to ______)</p><p>论据2<br>Where there is a will ，there is a way.(改编谚语)</p><p>如where there are friends ，there is communication.Therefore，our speaking ability can be improved.</p><p>论点3 Last but not least, no one can deny that it is high time that _____.</p><p>论据3 Only in this way, can we ______.</p><p>第三段</p><p>重申观点：In a word , it is clear that we should promote<u>……</u> If we try our utmost to<u>……</u>.the future of our life will be both promising and rosy.</p><h4 id="观点选择"><a href="#观点选择" class="headerlink" title="观点选择"></a>观点选择</h4><p>第一段：阐述问题，（列出不同观点，做出选择）过渡句3-4句</p><p>With the rapid development of ((economy&#x2F;culture&#x2F;society&#x2F;technology&#x2F;medical&#x2F;service&#x2F;education),nowadays youngsters have different options upon graduation.Some thinks that to find a job somewhere is beneficial, while others think to start a business of your own is a better.Personally, I prefer the former&#x2F;latter.The following reasons can account for my preference.</p><p>第二段</p><p>论点 1 First and foremost ,there is no doubt that _____.</p><p>论据1 Based on a most recent survey ,it is revealed that( a majority pf successful social admit that they prefer ____)</p><p>论点2 Furthermore， it is obvious that it is beneficial for( students to ______)</p><p>论据2 </p><p>Where there is a will ，there is a way.(改编谚语)</p><p>如where there are friends ，there is communication。Therefore，our speaking ability can be improved.</p><p>论点3 Last but not least, no one can deny that it is high time that _________________________(though )</p><p>论据3 Only in this way, can we ______.</p><p>第三段：重申观点+提出期望</p><p>In a word, A is better &#x2F; more suitable than B. If we spare no efforts to ____ the future of our life(与主题相关的)will be both rosy and promising</p><h4 id="现象解释（图画类作文"><a href="#现象解释（图画类作文" class="headerlink" title="现象解释（图画类作文)"></a>现象解释（图画类作文)</h4><p>第一段：3句话（阐述背景+提出观点+过渡句)</p><p>With the rapid of society&#x2F;culture&#x2F;economy&#x2F;technology&#x2F;education&#x2F;medical service,there is an increasing number of citizens moving from suburbs to the urban area.There are a large number of challenges of living in big cities .Followings are some of them.</p><p>第二段：</p><p>第二个段落：活动目的+三个具体事件+三句补足+以时间顺序串联</p><p>（6句话）论点1论据1，论点2论据2，论点3论据3，一个论点紧跟一个论据</p><p>论点 1.First and foremost ,there is no doubt that _____</p><p>论据一Based on a most recent survey ,it is revealed that a majority pf successful social elites admit that they 编一些数据</p><p>论点2 Furthermore， it is obvious that( it is beneficial for students to ______)</p><p>论据2 万能谚语——改编谚语</p><p>Where there is a will ，there is a way</p><p>如where there are friends ，there is communication。Therefore，our speaking ability can be improved.</p><p>论点3 Last but not least, no one can deny that it is high time that _____</p><p>论据3 only in this way, can we ______</p><p>第三段：重申观点，提出期望</p><p>In a word , it is of great necessity for the residents to face the challenges. If we spare no efforts to <u>……</u>,the future of<u>……</u> will be both promising and rosy.</p><h3 id="二、应用文"><a href="#二、应用文" class="headerlink" title="二、应用文"></a>二、应用文</h3><p>notice，advertisement，letter，news report，invitation，announcement，speech</p><h4 id="应用文（新闻报导）"><a href="#应用文（新闻报导）" class="headerlink" title="应用文（新闻报导）"></a>应用文（新闻报导）</h4><p>文体特征——客观，第三人称（they，he，she，student union）</p><p>过去式（一般过去时）过去进行时（事件的背景）</p><p>新闻的结构（先出结果<br>+再出细节+意义）</p><p>三个段落：</p><p>第一段：时间，地点，参与者，事件本身，事件结果</p><p>On December First, Monday ,the Student Union organized a meaningful activity to visit the local farm, in which 300 volunteers actively participated.It turns out to be a great success.</p><p>第二段：三个具体时间+三句补足</p><p>This activity was aimed at cultivating the practical ability of students by <u>……</u>visiting the farmland and helping the peasants with hard labours. In the early morning just after the arrival of  students , the students watered the crops in the field for farmers.(事件一)+when asked about those volunteers’ feelings about such an experience , all of them responded with a smile, saying “what a wonderful practice and i really appreciate this experience, for it makes me learn to care more for others in need.(use my knowledge in practice)(万能补足语一)</p><p>After the lunch, the farmers held an experience sharing meeting ,in which the students answered various useful questions.(事件二)Some students showed how to use technology to improve the productivity(补足语二).In the evening， the students and the farmers enjoyed a feast together , which was prepared by the students.（事件三）The peasants praised the cooking of students.（补足语三）</p><p>第三段：新闻的意义</p><p>this event&#x2F;activity turns out to be a beneficial event for both sides.The student union expressed that there will be more meaningful events in the future.(或者more efforts will be made to help farmers in the rural areas)</p><h3 id="比较固定的模板"><a href="#比较固定的模板" class="headerlink" title="比较固定的模板"></a>比较固定的模板</h3><p>第一个段落：（1-2句话）提出问题 ，（第三句话）过渡句；</p><p>第二个段落：（6句话）论点1论据1，论点2论据2，论点3论据3，一个论点紧跟一个论据；</p><p>第三个段落：（2句话）第一句话重申观点，第二句话提出期望。</p>]]></content>
       
+      
+      <categories>
+          
+          <category> English </category>
+          
+      </categories>
       
       
     </entry>
@@ -90,16 +108,10 @@
       
       <categories>
           
-          <category> World War I </category>
+          <category> History </category>
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> World War I </tag>
-            
-        </tags>
       
     </entry>
     
@@ -126,6 +138,12 @@
         <content type="html"><![CDATA[<h5 id="Ag-Versus-Wolves"><a href="#Ag-Versus-Wolves" class="headerlink" title="Ag Versus Wolves"></a>Ag Versus Wolves</h5><pre><code>Congratulations to Wolves Team.The ninth champion!</code></pre><h5 id="Reading-The-Paper"><a href="#Reading-The-Paper" class="headerlink" title="Reading The Paper"></a>Reading The Paper</h5><pre><code>It is a pity not to post the emoji.I want to say who in the end understands?</code></pre><h5 id="If-you-are-interesting-in-it-please-look-through-it-presumably"><a href="#If-you-are-interesting-in-it-please-look-through-it-presumably" class="headerlink" title="If you are interesting in it,please look through it presumably."></a>If you are interesting in it,please look through it presumably.</h5><p>5.3 Guided Sequence Generation<br>Navigated by the SSTG, we devise heuristics to efficientlyexplore unknownstate space and facilitate comprehensivetraversal. This module outputs the packet pattern sequenceand passes it to the packet instantiationsub-module as a guideline for packet sequence generation.<br>Algorithm 1: Guided packet sequence generation<br>Input: SSTG: System State Tracking Graph<br>Input: PT : transition priority<br>Output: ϕ: packet pattern sequence </p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">S ← TRAVERSE(SSTG)  </span><br><span class="line">f S is not empty then  </span><br><span class="line">q ← SELECTONE(S)  </span><br><span class="line">ϕ ← ENTERANDAPPEND(SSTG,q)  </span><br><span class="line">else  </span><br><span class="line">ϕ ← ∅  </span><br><span class="line">q ← GETINITIALSTATE(SSTG)  </span><br><span class="line">while HASSUCCESSOR(q) do  </span><br><span class="line">τ ← SELECTTRANSITION(SSTG,PT ,q)  </span><br><span class="line">ϕ ← ϕ∪ GETPACKETPATTERN(τ)  </span><br><span class="line">q ← TRANSITION(SSTG,q, τ)  </span><br><span class="line">return ϕ  </span><br></pre></td></tr></table></figure><p>Algorithm 1 provides an overview of the process: first, weattempt to stress test each SSTG state with diverse inputs by utilizing the proposed mutation operators (Lines 1-4). Specifically, for a SUT State h C(α)|S(β)i ,although the state output α is “deterministic” (the corresponding concrete packets of each execution may vary in some details) such that BLEEM receives the same packet type α as the mutation basis, we can select a different mutation operator σ to construct a different packet pattern α ⊕ σ as test inputs. To this end, we first check whether there is a state q that can be further exercised by other kinds of packet patterns that have not beenapplied (Line 1). If so, we construct a packet pattern sequence ϕ that can reach q and then append the desired packet pattern after ϕ (Line 4). For example, for the SSTG in Figure 6 with Σ 0 &#x3D; {σ◦,σP,σS}, if stressing q1 with a new packet pattern that combines q1’s output b with an unused mutation operator σP, i.e., b⊕σP, then we can construct such a packet pattern sequence: [a ⊕ σ◦,b ⊕ σP]. Second, after all the SUT states have been exercised by all kinds of packet patterns that are available, we attempt to facilitate comprehensive traversal of the implemented SSTG by steering towards low-density regions. We start from the initial state (Line 7) and then run in a loop until reaching an end state (Line 8): in each step, we select the one with the highest priority among the available transitions of the corresponding state (Line 9), record the corresponding packet pattern labeled on it (Line 10), and take this transition (Line 11). It is worth noting that even if we have once applied a packet pattern P to stress a state S and failed to discover new behaviors, it is also worthwhile trying P on S later because, as mentioned above, the set of the packet(s) that P can produce is typically infinite.</p>]]></content>
       
       
+      <categories>
+          
+          <category> Life Record </category>
+          
+      </categories>
+      
       
     </entry>
     
@@ -138,6 +156,12 @@
       
         <content type="html"><![CDATA[<pre><code>It will be update later.Please look for it.</code></pre>]]></content>
       
+      
+      <categories>
+          
+          <category> History </category>
+          
+      </categories>
       
       
     </entry>
@@ -154,7 +178,7 @@
       
       <categories>
           
-          <category> Computer Network </category>
+          <category> Computer Internet </category>
           
       </categories>
       
@@ -183,12 +207,6 @@
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> Techology </tag>
-            
-        </tags>
       
     </entry>
     
