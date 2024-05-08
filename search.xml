@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>希尔(shell)排序</title>
+      <link href="//2024/05/09/%E5%B8%8C%E5%B0%94-shell-%E6%8E%92%E5%BA%8F/"/>
+      <url>//2024/05/09/%E5%B8%8C%E5%B0%94-shell-%E6%8E%92%E5%BA%8F/</url>
+      
+        <content type="html"><![CDATA[<p>希尔(shell)排序是插入排序的一种。也称<strong>缩小增量排序</strong>，是直接插入排序的一种更高效的改进版本。希尔排序是非稳定排序。希尔排序是按照记录下标的一定增量分组，对每组使用直接插入排序算法排序；随着增量减少，每组包含的关键词增多，当增量减少至1时，所有元素被分为1组，算法结束。<br>我们分割待排序记录的目的是减少待排序记录的个数，并使整个序列向基本有序发展。而如上面这样分完组后，就各自排序的方法达不到我们的要求。因此，我们需要采取<strong>跳跃分割</strong>的策略：将相距某个“增量”的记录组成一个子序列，这样才能保证在子序列内分别进行直接插入排序后得到的结果是基本有序而不是局部有序。<br><img src="/images/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Algorithm </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> algorithm </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>三种O(n^2)的排序算法</title>
       <link href="//2024/05/08/%E4%B8%89%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
       <url>//2024/05/08/%E4%B8%89%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</url>

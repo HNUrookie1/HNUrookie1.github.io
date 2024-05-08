@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hnurookie1.github.io/2024/05/09/%E5%B8%8C%E5%B0%94-shell-%E6%8E%92%E5%BA%8F/</loc>
+    
+    <lastmod>2024-05-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://hnurookie1.github.io/tags/</loc>
     
     <lastmod>2024-05-08</lastmod>
@@ -206,6 +215,13 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://hnurookie1.github.io/tags/algorithm/</loc>
+    <lastmod>2024-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
@@ -223,6 +239,13 @@
   </url>
   
   <url>
+    <loc>https://hnurookie1.github.io/categories/English/</loc>
+    <lastmod>2024-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://hnurookie1.github.io/categories/Life-Record/</loc>
     <lastmod>2024-05-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -231,13 +254,6 @@
   
   <url>
     <loc>https://hnurookie1.github.io/categories/History/</loc>
-    <lastmod>2024-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://hnurookie1.github.io/categories/English/</loc>
     <lastmod>2024-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
