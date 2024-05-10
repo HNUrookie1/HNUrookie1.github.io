@@ -11,6 +11,15 @@
   </url>
   
   <url>
+    <loc>https://hnurookie1.github.io/2023/06/24/hello-world/</loc>
+    
+    <lastmod>2024-05-10</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://hnurookie1.github.io/2024/05/09/%E5%B8%8C%E5%B0%94-shell-%E6%8E%92%E5%BA%8F/</loc>
     
     <lastmod>2024-05-09</lastmod>
@@ -146,15 +155,6 @@
   </url>
   
   <url>
-    <loc>https://hnurookie1.github.io/2023/06/24/hello-world/</loc>
-    
-    <lastmod>2024-05-05</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://hnurookie1.github.io/2023/11/10/%E3%80%8A%E5%AF%92%E7%AA%91%E8%B5%8B%E3%80%8B/</loc>
     
     <lastmod>2024-05-05</lastmod>
@@ -225,6 +225,13 @@
   </url>
   
   <url>
+    <loc>https://hnurookie1.github.io/tags/WORD/</loc>
+    <lastmod>2024-05-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://hnurookie1.github.io/tags/algorithm/</loc>
     <lastmod>2024-05-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -248,14 +255,14 @@
   </url>
   
   <url>
-    <loc>https://hnurookie1.github.io/categories/English/</loc>
+    <loc>https://hnurookie1.github.io/categories/Life-Record/</loc>
     <lastmod>2024-05-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://hnurookie1.github.io/categories/Life-Record/</loc>
+    <loc>https://hnurookie1.github.io/categories/English/</loc>
     <lastmod>2024-05-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
