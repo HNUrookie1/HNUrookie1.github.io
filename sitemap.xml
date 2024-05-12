@@ -2,6 +2,60 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hnurookie1.github.io/shuoshuo/</loc>
+    
+    <lastmod>2024-05-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hnurookie1.github.io/photos/</loc>
+    
+    <lastmod>2024-05-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hnurookie1.github.io/movies/</loc>
+    
+    <lastmod>2024-05-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hnurookie1.github.io/music/</loc>
+    
+    <lastmod>2024-05-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hnurookie1.github.io/</loc>
+    
+    <lastmod>2024-05-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hnurookie1.github.io/about/</loc>
+    
+    <lastmod>2024-05-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://hnurookie1.github.io/2024/05/10/WORD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2024-05-12</lastmod>
@@ -164,15 +218,6 @@
   </url>
   
   <url>
-    <loc>https://hnurookie1.github.io/about/</loc>
-    
-    <lastmod>2023-06-27</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://hnurookie1.github.io/home/</loc>
     
     <lastmod>2023-06-27</lastmod>
@@ -185,15 +230,6 @@
     <loc>https://hnurookie1.github.io/google2bddc3204a23b47c</loc>
     
     <lastmod>2023-06-26</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hnurookie1.github.io/</loc>
-    
-    <lastmod>2023-06-25</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
