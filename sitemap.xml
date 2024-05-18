@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://hnurookie1.github.io/2024/05/19/make%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0/</loc>
+    <loc>https://hnurookie1.github.io/2024/05/10/WORD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2024-05-18</lastmod>
     
@@ -11,9 +11,9 @@
   </url>
   
   <url>
-    <loc>https://hnurookie1.github.io/2024/05/10/WORD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <loc>https://hnurookie1.github.io/2024/05/19/make%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0/</loc>
     
-    <lastmod>2024-05-13</lastmod>
+    <lastmod>2024-05-18</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -270,14 +270,14 @@
   </url>
   
   <url>
-    <loc>https://hnurookie1.github.io/tags/GUN-Make/</loc>
+    <loc>https://hnurookie1.github.io/tags/WORD/</loc>
     <lastmod>2024-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://hnurookie1.github.io/tags/WORD/</loc>
+    <loc>https://hnurookie1.github.io/tags/GUN-Make/</loc>
     <lastmod>2024-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -300,6 +300,13 @@
   </url>
   
   <url>
+    <loc>https://hnurookie1.github.io/categories/Necessary-Tools/</loc>
+    <lastmod>2024-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://hnurookie1.github.io/categories/Algorithm/</loc>
     <lastmod>2024-05-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -314,14 +321,14 @@
   </url>
   
   <url>
-    <loc>https://hnurookie1.github.io/categories/Life-Record/</loc>
+    <loc>https://hnurookie1.github.io/categories/History/</loc>
     <lastmod>2024-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://hnurookie1.github.io/categories/History/</loc>
+    <loc>https://hnurookie1.github.io/categories/Life-Record/</loc>
     <lastmod>2024-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
