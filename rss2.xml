@@ -9,8 +9,32 @@
     <atom:link href="https://hnurookie1.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>灵气勇气朝气三气并存气贯长虹，信心决心恒心三心同在心想事成。</description>
-    <pubDate>Mon, 13 May 2024 05:05:20 GMT</pubDate>
+    <pubDate>Sat, 18 May 2024 17:08:28 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>GNU Make工具学习</title>
+      <link>https://hnurookie1.github.io/2024/05/19/make%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0/</link>
+      <guid>https://hnurookie1.github.io/2024/05/19/make%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0/</guid>
+      <pubDate>Sat, 18 May 2024 16:55:28 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h1 id=&quot;Makefile介绍&quot;&gt;&lt;a href=&quot;#Makefile介绍&quot; class=&quot;headerlink&quot; title=&quot;Makefile介绍&quot;&gt;&lt;/a&gt;Makefile介绍&lt;/h1&gt;&lt;p&gt;make命令执行时，需要一个Makefile文件，以告诉make命令需要怎么</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<h1 id="Makefile介绍"><a href="#Makefile介绍" class="headerlink" title="Makefile介绍"></a>Makefile介绍</h1><p>make命令执行时，需要一个Makefile文件，以告诉make命令需要怎么样的去编译和链接程序。</p><p>首先，我们用一个示例来说明Makefile的书写规则，以便给大家一个感性认识。这个示例来源于gnu 的make使用手册，在这个示例中，我们的工程有8个c文件，和3个头文件，我们要写一个Makefile来告诉make命令如何编译和链接这几个文件。我们的规则是：</p><ol><li><p>如果这个工程没有编译过，那么我们的所有c文件都要编译并被链接。</p></li><li><p>如果这个工程的某几个c文件被修改，那么我们只编译被修改的c文件，并链接目标程序。</p></li><li><p>如果这个工程的头文件被改变了，那么我们需要编译引用了这几个头文件的c文件，并链接目标程序。</p></li></ol><p>只要我们的Makefile写得够好，所有的这一切，我们只用一个make命令就可以完成，make命令会自动智能地根据当前的文件修改的情况来确定哪些文件需要重编译，从而自动编译所需要的文件和链接目标程序。</p><h1 id="Makefile的规则"><a href="#Makefile的规则" class="headerlink" title="Makefile的规则"></a>Makefile的规则</h1><p>在讲述这个Makefile之前，还是让我们先来粗略地看一看Makefile的规则。</p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">target ... : prerequisites ...</span><br><span class="line">    recipe</span><br><span class="line">    ...</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure><p><strong>target</strong><br>可以是一个object file（目标文件），也可以是一个可执行文件，还可以是一个标签（label）。对于标签这种特性，在后续的“伪目标”章节中会有叙述。</p><p><strong>prerequisites</strong><br>生成该target所依赖的文件和&#x2F;或target。</p><p><strong>recipe</strong><br>该target要执行的命令（任意的shell命令）。</p><p>这是一个文件的依赖关系，也就是说，target这一个或多个的目标文件依赖于prerequisites中的文件，其生成规则定义在command中。说白一点就是说:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prerequisites中如果有一个以上的文件比target文件要新的话,recipe所定义的命令就会被执行。</span><br></pre></td></tr></table></figure><p>这就是makefile的规则，也就是makefile中最核心的内容。</p><p>说到底，makefile的东西就是这样一点，好像我的这篇文档也该结束了。呵呵。还不尽然，这是makefile 的主线和核心，但要写好一个makefile还不够，我会在后面一点一点地结合我的工作经验给你慢慢道来。内容还多着呢。:)</p><h1 id="一个示例"><a href="#一个示例" class="headerlink" title="一个示例"></a>一个示例</h1><h1 id="make是如何工作的"><a href="#make是如何工作的" class="headerlink" title="make是如何工作的"></a>make是如何工作的</h1><p>在默认的方式下，也就是我们只输入 <code>make</code> 命令。那么，</p><ol><li><p><code>make</code>会在当前目录下找名字叫“Makefile”或“makefile”的文件。</p></li><li><p>如果找到，它会找文件中的第一个目标文件（target），在上面的例子中，他会找到“edit”这个文件，并把这个文件作为最终的目标文件。</p></li><li><p>如果<code>edit</code>文件不存在，或是<code>edit</code>所依赖的后面的 <code>.o</code> 文件的文件修改时间要比 <code>edit</code> 这个文件新，那么，他就会执行后面所定义的命令来生成 <code>edit</code> 这个文件。</p></li><li><p>如果 <code>edit</code> 所依赖的 <code>.o</code> 文件也不存在，那么<code>make</code>会在当前文件中找目标为 <code>.o</code> 文件的依赖性，如果找到则再根据那一个规则生成 <code>.o</code> 文件。（这有点像一个堆栈的过程）</p></li><li><p>当然，你的C文件和头文件是存在的啦，于是<code>make</code>会生成 <code>.o</code> 文件，然后再用 <code>.o</code> 文件生成<code>make</code>的终极任务，也就是可执行文件 <code>edit</code> 了。</p></li></ol><p>这就是整个<code>make</code>的依赖性，<code>make</code>会一层又一层地去找文件的依赖关系，直到最终编译出第一个目标文件。在找寻的过程中，如果出现错误，比如最后被依赖的文件找不到，那么<code>make</code>就会直接退出，并报错，而对于所定义的命令的错误，或是编译不成功，<code>make</code>根本不理。<code>make</code>只管文件的依赖性，即，如果在我找了依赖关系之后，冒号后面的文件还是不在，那么对不起，我就不工作啦。</p><p>通过上述分析，我们知道，像clean这种，没有被第一个目标文件直接或间接关联，那么它后面所定义的命令将不会被自动执行，不过，我们可以显示要make执行。即命令—— make clean ，以此来清除所有的目标文件，以便重编译。</p><p>于是在我们编程中，如果这个工程已被编译过了，当我们修改了其中一个源文件，比如 file.c ，那么根据我们的依赖性，我们的目标 file.o 会被重编译（也就是在这个依性关系后面所定义的命令），于是 file.o 的文件也是最新的啦，于是 file.o 的文件修改时间要比 edit 要新，所以 edit 也会被重新链接了（详见 edit 目标文件后定义的命令）。</p><p>而如果我们改变了 command.h ，那么， kdb.o 、 command.o 和 files.o 都会被重编译，并且， edit 会被重链接。</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://HNUrookie1.github.io/tags/GUN-Make/">GUN Make</category>
+      
+      
+      <comments>https://hnurookie1.github.io/2024/05/19/make%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>WORD学习笔记</title>
@@ -230,30 +254,6 @@
       
       
       <comments>https://hnurookie1.github.io/2023/11/10/%E3%80%8A%E5%AF%92%E7%AA%91%E8%B5%8B%E3%80%8B/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>今日记录</title>
-      <link>https://hnurookie1.github.io/2023/11/05/%E4%BB%8A%E6%97%A5%E8%AE%B0%E5%BD%95/</link>
-      <guid>https://hnurookie1.github.io/2023/11/05/%E4%BB%8A%E6%97%A5%E8%AE%B0%E5%BD%95/</guid>
-      <pubDate>Sun, 05 Nov 2023 14:56:50 GMT</pubDate>
-      
-        
-        
-      <description>&lt;h5 id=&quot;Ag-Versus-Wolves&quot;&gt;&lt;a href=&quot;#Ag-Versus-Wolves&quot; class=&quot;headerlink&quot; title=&quot;Ag Versus Wolves&quot;&gt;&lt;/a&gt;Ag Versus Wolves&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;Congra</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<h5 id="Ag-Versus-Wolves"><a href="#Ag-Versus-Wolves" class="headerlink" title="Ag Versus Wolves"></a>Ag Versus Wolves</h5><pre><code>Congratulations to Wolves Team.The ninth champion!</code></pre><h5 id="Reading-The-Paper"><a href="#Reading-The-Paper" class="headerlink" title="Reading The Paper"></a>Reading The Paper</h5><pre><code>It is a pity not to post the emoji.I want to say who in the end understands?</code></pre><h5 id="If-you-are-interesting-in-it-please-look-through-it-presumably"><a href="#If-you-are-interesting-in-it-please-look-through-it-presumably" class="headerlink" title="If you are interesting in it,please look through it presumably."></a>If you are interesting in it,please look through it presumably.</h5><p>5.3 Guided Sequence Generation<br>Navigated by the SSTG, we devise heuristics to efficientlyexplore unknownstate space and facilitate comprehensivetraversal. This module outputs the packet pattern sequenceand passes it to the packet instantiationsub-module as a guideline for packet sequence generation.<br>Algorithm 1: Guided packet sequence generation<br>Input: SSTG: System State Tracking Graph<br>Input: PT : transition priority<br>Output: ϕ: packet pattern sequence </p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">S ← TRAVERSE(SSTG)  </span><br><span class="line">f S is not empty then  </span><br><span class="line">q ← SELECTONE(S)  </span><br><span class="line">ϕ ← ENTERANDAPPEND(SSTG,q)  </span><br><span class="line">else  </span><br><span class="line">ϕ ← ∅  </span><br><span class="line">q ← GETINITIALSTATE(SSTG)  </span><br><span class="line">while HASSUCCESSOR(q) do  </span><br><span class="line">τ ← SELECTTRANSITION(SSTG,PT ,q)  </span><br><span class="line">ϕ ← ϕ∪ GETPACKETPATTERN(τ)  </span><br><span class="line">q ← TRANSITION(SSTG,q, τ)  </span><br><span class="line">return ϕ  </span><br></pre></td></tr></table></figure><p>Algorithm 1 provides an overview of the process: first, weattempt to stress test each SSTG state with diverse inputs by utilizing the proposed mutation operators (Lines 1-4). Specifically, for a SUT State h C(α)|S(β)i ,although the state output α is “deterministic” (the corresponding concrete packets of each execution may vary in some details) such that BLEEM receives the same packet type α as the mutation basis, we can select a different mutation operator σ to construct a different packet pattern α ⊕ σ as test inputs. To this end, we first check whether there is a state q that can be further exercised by other kinds of packet patterns that have not beenapplied (Line 1). If so, we construct a packet pattern sequence ϕ that can reach q and then append the desired packet pattern after ϕ (Line 4). For example, for the SSTG in Figure 6 with Σ 0 &#x3D; {σ◦,σP,σS}, if stressing q1 with a new packet pattern that combines q1’s output b with an unused mutation operator σP, i.e., b⊕σP, then we can construct such a packet pattern sequence: [a ⊕ σ◦,b ⊕ σP]. Second, after all the SUT states have been exercised by all kinds of packet patterns that are available, we attempt to facilitate comprehensive traversal of the implemented SSTG by steering towards low-density regions. We start from the initial state (Line 7) and then run in a loop until reaching an end state (Line 8): in each step, we select the one with the highest priority among the available transitions of the corresponding state (Line 9), record the corresponding packet pattern labeled on it (Line 10), and take this transition (Line 11). It is worth noting that even if we have once applied a packet pattern P to stress a state S and failed to discover new behaviors, it is also worthwhile trying P on S later because, as mentioned above, the set of the packet(s) that P can produce is typically infinite.</p>]]></content:encoded>
-      
-      
-      <category domain="https://HNUrookie1.github.io/categories/Life-Record/">Life Record</category>
-      
-      
-      
-      <comments>https://hnurookie1.github.io/2023/11/05/%E4%BB%8A%E6%97%A5%E8%AE%B0%E5%BD%95/#disqus_thread</comments>
       
     </item>
     
