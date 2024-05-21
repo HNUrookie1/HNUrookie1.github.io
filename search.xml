@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Git学习笔记</title>
+      <link href="//2024/05/22/Git%E5%AD%A6%E4%B9%A0/"/>
+      <url>//2024/05/22/Git%E5%AD%A6%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Git分支-远程分支-2024-5-22"><a href="#Git分支-远程分支-2024-5-22" class="headerlink" title="Git分支-远程分支(2024-5-22)"></a>Git分支-远程分支(2024-5-22)</h1><h2 id="远程分支"><a href="#远程分支" class="headerlink" title="远程分支"></a>远程分支</h2><p>远程引用时对远程仓库的引用（指针），包括分支、标签等等。你可以通过 <code>git ls-remote &lt;remote&gt;</code>来显示地获取远程引用的完整列表，或者通过<code>git remote show &lt;remote&gt;</code>来获取远程分支的更多信息。然而，一个更常见的做法是利用远程跟踪分支。<br>远程跟踪分支是远程分支状态的引用。它们是你无法移动的本地引用。一旦你进行了网络通信，Git就会为你移动它们以精确反应远程仓库的状态。请将它们看做书签，这样可以提醒你该分支在远程仓库中的位置就是你最后一次连接到它们的位置。<del>休息，明天再写</del></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Necessary Tools </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>GNU Make工具学习</title>
       <link href="//2024/05/19/make%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0/"/>
       <url>//2024/05/19/make%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0/</url>

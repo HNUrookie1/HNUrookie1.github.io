@@ -1,3 +1,4 @@
+https://hnurookie1.github.io/2024/05/22/Git%E5%AD%A6%E4%B9%A0/
 https://hnurookie1.github.io/2024/05/19/make%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0/
 https://hnurookie1.github.io/2024/05/10/WORD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/
 https://hnurookie1.github.io/shuoshuo/
@@ -27,12 +28,13 @@ https://hnurookie1.github.io/home/
 https://hnurookie1.github.io/google2bddc3204a23b47c
 https://hnurookie1.github.io/resources/
 https://hnurookie1.github.io/
-https://hnurookie1.github.io/tags/WORD/
 https://hnurookie1.github.io/tags/Study/
+https://hnurookie1.github.io/tags/Git/
+https://hnurookie1.github.io/tags/WORD/
 https://hnurookie1.github.io/tags/GUN-Make/
 https://hnurookie1.github.io/tags/algorithm/
-https://hnurookie1.github.io/categories/Necessary-Tools/
 https://hnurookie1.github.io/categories/Computer-Internet/
+https://hnurookie1.github.io/categories/Necessary-Tools/
 https://hnurookie1.github.io/categories/Algorithm/
 https://hnurookie1.github.io/categories/Life-Record/
 https://hnurookie1.github.io/categories/English/
