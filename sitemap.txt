@@ -1,3 +1,5 @@
+https://hnurookie1.github.io/music/
+https://hnurookie1.github.io/tags/
 https://hnurookie1.github.io/2024/06/28/%E8%AE%A1%E7%BD%91%E5%AD%A6%E4%B9%A0/
 https://hnurookie1.github.io/2023/06/25/Computer-network-experiment-IV/
 https://hnurookie1.github.io/2024/05/22/Git%E5%AD%A6%E4%B9%A0/
@@ -6,12 +8,10 @@ https://hnurookie1.github.io/2024/05/10/WORD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0
 https://hnurookie1.github.io/shuoshuo/
 https://hnurookie1.github.io/photos/
 https://hnurookie1.github.io/movies/
-https://hnurookie1.github.io/music/
 https://hnurookie1.github.io/
 https://hnurookie1.github.io/about/
 https://hnurookie1.github.io/2023/06/24/hello-world/
 https://hnurookie1.github.io/2024/05/09/%E5%B8%8C%E5%B0%94-shell-%E6%8E%92%E5%BA%8F/
-https://hnurookie1.github.io/tags/
 https://hnurookie1.github.io/2023/12/17/%E6%97%A0%E9%A2%98/
 https://hnurookie1.github.io/2023/12/11/%E5%85%AD%E7%BA%A7%E4%BD%9C%E6%96%87%E8%80%83%E5%89%8D%E6%80%A5%E6%95%91%E5%8C%85%EF%BC%8C%E6%8B%92%E7%BB%9Djpg%E6%8B%A5%E6%8A%B1png/
 https://hnurookie1.github.io/2023/11/05/%E4%BB%8A%E6%97%A5%E8%AE%B0%E5%BD%95/
@@ -29,14 +29,14 @@ https://hnurookie1.github.io/home/
 https://hnurookie1.github.io/google2bddc3204a23b47c
 https://hnurookie1.github.io/resources/
 https://hnurookie1.github.io/
-https://hnurookie1.github.io/tags/Computer-Network/
 https://hnurookie1.github.io/tags/Git/
+https://hnurookie1.github.io/tags/Computer-Network/
 https://hnurookie1.github.io/tags/WORD/
 https://hnurookie1.github.io/tags/GUN-Make/
 https://hnurookie1.github.io/tags/algorithm/
-https://hnurookie1.github.io/categories/Computer-Network/
 https://hnurookie1.github.io/categories/Necessary-Tools/
-https://hnurookie1.github.io/categories/Algorithm/
+https://hnurookie1.github.io/categories/Computer-Network/
 https://hnurookie1.github.io/categories/Life-Record/
-https://hnurookie1.github.io/categories/English/
+https://hnurookie1.github.io/categories/Algorithm/
 https://hnurookie1.github.io/categories/History/
+https://hnurookie1.github.io/categories/English/
